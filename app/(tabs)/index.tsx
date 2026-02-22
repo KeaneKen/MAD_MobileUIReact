@@ -1,98 +1,173 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from 'react';
+import { Alert, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View, } from 'react-native';
+import { SafeAreaView } from 'react-native-safe-area-context';
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
+const GRID_IMAGES = [
+  require('../../assets/images/grid1.png'),
+  require('../../assets/images/grid2.png'),
+  require('../../assets/images/grid3.png'),
+  require('../../assets/images/grid4.png'),
+  require('../../assets/images/grid5.png'),
+  require('../../assets/images/grid6.png'),
+];
 
 export default function HomeScreen() {
   return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+    <SafeAreaView style={styles.safeArea}>
+      <View style={styles.headerBar} />
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+
+        <View style={styles.profileSection}>
+          <Image
+            source={require('../../assets/images/profile.png')}
+            style={styles.profileImage}
+          />
+          <Text style={styles.profileName}>Makoto Niijima</Text>
+        </View>
+
+        <View style={styles.tabSection}>
+          <TouchableOpacity
+            style={[styles.tabButton, styles.tabButtonLeft]}
+            onPress={() => Alert.alert('Tab', 'Button 1 pressed')}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.tabButtonText}>Button 1</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.tabButton, styles.tabButtonRight]}
+            onPress={() => Alert.alert('Tab', 'Button 2 pressed')}
+            activeOpacity={0.8}
+          >
+            <Text style={styles.tabButtonText}>Button 2</Text>
+          </TouchableOpacity>
+        </View>
+
+        <View style={styles.divider} />
+
+        <View style={styles.gridContainer}>
+          {GRID_IMAGES.map((src, index) => (
+            <View key={index} style={styles.gridCell}>
+              <Image source={src} style={styles.gridImage} resizeMode="cover" />
+            </View>
+          ))}
+        </View>
+
+      </ScrollView>
+
+      <View style={styles.bottomSection}>
+        <TouchableOpacity
+          style={styles.bottomButton}
+          onPress={() => Alert.alert('Bottom', 'Bottom button pressed')}
+          activeOpacity={0.8}
+        >
+          <Text style={styles.bottomButtonText}>Bottom Button</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
+  safeArea: {
+    flex: 1,
+    backgroundColor: '#ffffff',
+  },
+
+  headerBar: {
+    height: 8,
+    backgroundColor: '#3ECFBF',
+  },
+
+  scrollContent: {
+    paddingBottom: 16,
+  },
+
+  profileSection: {
     alignItems: 'center',
-    gap: 8,
+    paddingVertical: 28,
   },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
+  profileImage: {
+    width: 110,
+    height: 110,
+    borderRadius: 8,
+    backgroundColor: '#FFA500',
   },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
+  profileName: {
+    marginTop: 12,
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#333',
+    letterSpacing: 0.4,
+  },
+
+  tabSection: {
+    flexDirection: 'row',
+    marginHorizontal: 16,
+    height: 48,
+  },
+  tabButton: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  tabButtonLeft: {
+    backgroundColor: '#7B3FE4',
+    borderTopLeftRadius: 6,
+    borderBottomLeftRadius: 6,
+  },
+  tabButtonRight: {
+    backgroundColor: '#4A90D9',
+    borderTopRightRadius: 6,
+    borderBottomRightRadius: 6,
+  },
+  tabButtonText: {
+    color: '#ffffff',
+    fontSize: 15,
+    fontWeight: '700',
+    letterSpacing: 0.5,
+  },
+
+  divider: {
+    height: 6,
+    backgroundColor: '#3ECFBF',
+    marginTop: 8,
+    marginBottom: 16,
+  },
+
+  gridContainer: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    paddingHorizontal: 10,
+    justifyContent: 'space-between',
+  },
+  gridCell: {
+    width: '31%',
+    aspectRatio: 1,
+    marginBottom: 12,
+    borderRadius: 8,
+    overflow: 'hidden',
+    backgroundColor: '#FFA500',
+  },
+  gridImage: {
+    width: '100%',
+    height: '100%',
+  },
+
+  bottomSection: {
+    paddingHorizontal: 0,
+    paddingVertical: 0,
+  },
+  bottomButton: {
+    backgroundColor: '#4A90D9',
+    height: 56,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  bottomButtonText: {
+    color: '#ffffff',
+    fontSize: 17,
+    fontWeight: '700',
+    letterSpacing: 0.6,
   },
 });
