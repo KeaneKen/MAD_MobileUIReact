@@ -85,17 +85,17 @@ const styles = StyleSheet.create({
 
   profileSection: {
     alignItems: 'center',
-    paddingVertical: 28,
+    paddingVertical: 18,
   },
   profileImage: {
-    width: 110,
-    height: 110,
-    borderRadius: 8,
+    width: 90,
+    height: 90,
+    borderRadius: 6,
     backgroundColor: '#FFA500',
   },
   profileName: {
-    marginTop: 12,
-    fontSize: 18,
+    marginTop: 8,
+    fontSize: 15,
     fontWeight: '600',
     color: '#333',
     letterSpacing: 0.4,
@@ -103,23 +103,20 @@ const styles = StyleSheet.create({
 
   tabSection: {
     flexDirection: 'row',
-    marginHorizontal: 16,
-    height: 48,
+    marginHorizontal: 0,
+    height: 52,
   },
   tabButton: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
   },
   tabButtonLeft: {
+    flex: 11,
     backgroundColor: '#7B3FE4',
-    borderTopLeftRadius: 6,
-    borderBottomLeftRadius: 6,
   },
   tabButtonRight: {
+    flex: 11,
     backgroundColor: '#4A90D9',
-    borderTopRightRadius: 6,
-    borderBottomRightRadius: 6,
   },
   tabButtonText: {
     color: '#ffffff',
@@ -129,23 +126,23 @@ const styles = StyleSheet.create({
   },
 
   divider: {
-    height: 6,
+    height: 5,
     backgroundColor: '#3ECFBF',
-    marginTop: 8,
-    marginBottom: 16,
+    marginTop: 0,
+    marginBottom: 8,
   },
 
   gridContainer: {
     flexDirection: 'row',
     flexWrap: 'wrap',
-    paddingHorizontal: 10,
+    paddingHorizontal: 6,
     justifyContent: 'space-between',
   },
   gridCell: {
-    width: '31%',
+    width: '32%',
     aspectRatio: 1,
-    marginBottom: 12,
-    borderRadius: 8,
+    marginBottom: 6,
+    borderRadius: 4,
     overflow: 'hidden',
     backgroundColor: '#FFA500',
   },
